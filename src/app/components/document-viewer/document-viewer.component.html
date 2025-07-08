@@ -1,1 +1,22 @@
-<p>document-viewer works!</p>
+<div
+  tuiDropdownContext
+  class="document-container"
+  [style.width]="documentZoomedWidth$ | async"
+  [tuiDropdown]="content"
+  [tuiDropdownManual]="contextOpen"
+>
+  <ng-container *ngIf="documentData$ | async as document">
+    <div class="document-page" *ngFor="let page of document.pages">
+      <img class="document-image" [src]="page.imageUrl" />
+    </div>
+  </ng-container>
+</div>
+
+<ng-template #content>
+  <tui-data-list tuiDataListDropdownManager class="document-context-menu">
+    <button tuiOption type="button" size="s" (click)="addNote($event)">
+      Добавить заметку
+      <tui-icon class="icon" icon="@tui.copy" />
+    </button>
+  </tui-data-list>
+</ng-template>

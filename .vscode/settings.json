@@ -1,8 +1,9 @@
 {
-    "workbench.colorCustomizations": {
-        "activityBar.background": "#382C18",
-        "titleBar.activeBackground": "#4F3D21",
-        "titleBar.activeForeground": "#FCFAF7"
-    },
-    "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#4C220A",
+    "titleBar.activeBackground": "#6A300E",
+    "titleBar.activeForeground": "#FEF9F7"
+  },
+  "eslint.format.enable": true
 }

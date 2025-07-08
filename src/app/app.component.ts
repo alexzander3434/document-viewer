@@ -1,26 +1,24 @@
-import { TuiButton, TuiRoot } from '@taiga-ui/core';
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { TuiAppBar, TuiNavigation } from '@taiga-ui/layout';
-import { TuiInputNumber } from '@taiga-ui/kit';
-import { TuiTextfield } from '@taiga-ui/core';
-import { FormsModule } from '@angular/forms';
+import { TuiButton, TuiRoot } from "@taiga-ui/core";
+import { ChangeDetectionStrategy, Component, Provider } from "@angular/core";
+import { RouterOutlet } from "@angular/router";
+import { TuiAppBar, TuiNavigation } from "@taiga-ui/layout";
+import { ZoomControlComponent } from "./components";
 
 @Component({
-  selector: 'app-root',
+  selector: "app-root",
+  standalone: true,
   imports: [
     RouterOutlet,
-    FormsModule,
     TuiRoot,
     TuiAppBar,
     TuiButton,
     TuiNavigation,
-    TuiInputNumber,
-    TuiTextfield,
+    ZoomControlComponent,
   ],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  templateUrl: "./app.component.html",
+  styleUrl: "./app.component.scss",
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  title = 'document-viewer';
+  title = "document-viewer";
 }

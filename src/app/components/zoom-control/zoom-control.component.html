@@ -1,0 +1,10 @@
+<tui-textfield>
+  <input
+    postfix="%"
+    tuiInputNumber
+    [max]="maximum$ | async"
+    [min]="minimum$ | async"
+    [step]="(step$ | async) || 1"
+    [formControl]="control"
+  />
+</tui-textfield>
