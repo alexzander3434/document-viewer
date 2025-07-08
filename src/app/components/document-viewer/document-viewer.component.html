@@ -1,22 +1,29 @@
-<div
-  tuiDropdownContext
-  class="document-container"
-  [style.width]="documentZoomedWidth$ | async"
-  [tuiDropdown]="content"
-  [tuiDropdownManual]="contextOpen"
->
+<div class="document-container" [style.width]="documentZoomedWidth$ | async">
   <ng-container *ngIf="documentData$ | async as document">
-    <div class="document-page" *ngFor="let page of document.pages">
-      <img class="document-image" [src]="page.imageUrl" />
+    <div
+      #documentContainerHost
+      #dropdown="tuiDropdown"
+      tuiDropdownContext
+      class="document"
+      [tuiDropdown]="content"
+    >
+      <div class="document-page" *ngFor="let page of document.pages">
+        <img class="document-image" [src]="page.imageUrl" />
+      </div>
     </div>
+
+    <ng-template #content>
+      <tui-data-list tuiDataListDropdownManager class="document-context-menu">
+        <button
+          tuiOption
+          type="button"
+          size="s"
+          (click)="addNote($event); dropdown.toggle(false)"
+        >
+          Добавить заметку
+          <tui-icon class="icon" icon="@tui.copy" />
+        </button>
+      </tui-data-list>
+    </ng-template>
   </ng-container>
 </div>
-
-<ng-template #content>
-  <tui-data-list tuiDataListDropdownManager class="document-context-menu">
-    <button tuiOption type="button" size="s" (click)="addNote($event)">
-      Добавить заметку
-      <tui-icon class="icon" icon="@tui.copy" />
-    </button>
-  </tui-data-list>
-</ng-template>
