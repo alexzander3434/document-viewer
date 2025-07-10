@@ -1,1 +1,61 @@
-<div tuiComment="left">Check it out</div>
+<ng-container *ngIf="noteType$ | async as noteType">
+  <ng-container [ngSwitch]="noteType">
+    <ng-template ngSwitchCase="left">
+      <div class="note leftComment" tuiComment="left">
+        <ng-container [ngTemplateOutlet]="noteContent"></ng-container>
+      </div>
+    </ng-template>
+    <ng-template ngSwitchCase="right">
+      <div class="note rightComment" tuiComment="right">
+        <ng-container [ngTemplateOutlet]="noteContent"></ng-container>
+      </div>
+    </ng-template>
+    <ng-template ngSwitchCase="top">
+      <div class="note topComment" tuiComment="top">
+        <ng-container [ngTemplateOutlet]="noteContent"></ng-container>
+      </div>
+    </ng-template>
+    <ng-template ngSwitchCase="bottom">
+      <div class="note bottomComment" tuiComment="bottom">
+        <ng-container [ngTemplateOutlet]="noteContent"></ng-container>
+      </div>
+    </ng-template>
+  </ng-container>
+</ng-container>
+
+<ng-template #noteContent>
+  <div
+    contenteditable="true"
+    [innerHTML]="noteText$ | async"
+    (blur)="inputNote($event)"
+    (click)="setEditMode()"
+    class="note__text"
+  >
+    Новая заметка
+  </div>
+
+  <div class="note__pivots">
+    <div class="note__pivot note__pivot--left" (click)="setPivot('left')"></div>
+    <div
+      class="note__pivot note__pivot--right"
+      (click)="setPivot('right')"
+    ></div>
+    <div class="note__pivot note__pivot--top" (click)="setPivot('top')"></div>
+    <div
+      class="note__pivot note__pivot--bottom"
+      (click)="setPivot('bottom')"
+    ></div>
+  </div>
+
+  <button
+    appearance="glass"
+    (click)="destroyNote()"
+    size="xs"
+    tuiButtonClose
+    tuiIconButton
+    type="button"
+    class="note__removeBtn"
+  >
+    Close
+  </button>
+</ng-template>

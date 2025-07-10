@@ -8,11 +8,11 @@ import { BehaviorSubject, startWith } from "rxjs";
 export class ZoomControlService {
   private readonly defaultZoomAmount = 100;
 
-  readonly defaultMaximumZoomAmount$ = new BehaviorSubject(200);
+  readonly maximumZoomValue$ = new BehaviorSubject(300);
 
-  readonly defaulMinimumZoomAmount$ = new BehaviorSubject(10);
+  readonly minimumZoomValue$ = new BehaviorSubject(10);
 
-  readonly defaulZoomStep$ = new BehaviorSubject<number>(15);
+  readonly zoomStep$ = new BehaviorSubject<number>(15);
 
   readonly zoomControl = new FormControl(this.defaultZoomAmount);
 
@@ -21,14 +21,45 @@ export class ZoomControlService {
   );
 
   setDefaultMaximum(maximum: number): void {
-    this.defaulMinimumZoomAmount$.next(maximum);
+    this.minimumZoomValue$.next(maximum);
   }
 
   setDefaultMinimum(minimum: number): void {
-    this.defaulMinimumZoomAmount$.next(minimum < 0 ? 0 : minimum);
+    this.minimumZoomValue$.next(minimum < 0 ? 0 : minimum);
   }
 
   setDefaultStep(step: number): void {
-    this.defaulZoomStep$.next(step);
+    this.zoomStep$.next(step);
+  }
+
+  zoom(operator: string): void {
+    const currentAmount = this.zoomControl.value;
+    const zoomStep = this.zoomStep$.value;
+
+    const currentMaximumValue = this.maximumZoomValue$.value;
+    const currentMinimumValue = this.minimumZoomValue$.value;
+
+    switch (operator) {
+      case "+":
+        {
+          const newVal = (currentAmount || 0) + zoomStep;
+
+          this.zoomControl.setValue(
+            newVal > currentMaximumValue ? currentMaximumValue : newVal
+          );
+        }
+        break;
+      case "-":
+        {
+          const newVal = (currentAmount || 0) - zoomStep;
+
+          this.zoomControl.setValue(
+            newVal < currentMinimumValue || newVal <= 0
+              ? currentMinimumValue
+              : newVal
+          );
+        }
+        break;
+    }
   }
 }

@@ -1,8 +1,21 @@
 .viewer-content {
   display: flex;
-
   flex-direction: column;
   align-items: center;
   background-color: #ddd;
   padding: 1rem;
+  min-height: calc(100vh - 48px);
+}
+
+header {
+  justify-content: space-between;
+}
+
+.header {
+  &__tools {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 2rem;
+  }
 }

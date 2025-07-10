@@ -17,9 +17,9 @@ export class ZoomControlComponent {
 
   readonly control = this.zoomService.zoomControl;
 
-  readonly maximum$ = this.zoomService.defaultMaximumZoomAmount$;
+  readonly maximum$ = this.zoomService.maximumZoomValue$;
 
-  readonly minimum$ = this.zoomService.defaulMinimumZoomAmount$;
+  readonly minimum$ = this.zoomService.minimumZoomValue$;
 
-  readonly step$ = this.zoomService.defaulZoomStep$;
+  readonly step$ = this.zoomService.zoomStep$;
 }

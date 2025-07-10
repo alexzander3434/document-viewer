@@ -1,9 +1,13 @@
 <div class="document-container" [style.width]="documentZoomedWidth$ | async">
+  <ng-container *ngIf="loading$ | async">
+    <tui-loader size="l" />
+  </ng-container>
   <ng-container *ngIf="documentData$ | async as document">
     <div
       #documentContainerHost
       #dropdown="tuiDropdown"
       tuiDropdownContext
+      (contextmenu)="setNoteTarget($event)"
       class="document"
       [tuiDropdown]="content"
     >
@@ -18,7 +22,7 @@
           tuiOption
           type="button"
           size="s"
-          (click)="addNote($event); dropdown.toggle(false)"
+          (click)="addNote(); dropdown.toggle(false)"
         >
           Добавить заметку
           <tui-icon class="icon" icon="@tui.copy" />

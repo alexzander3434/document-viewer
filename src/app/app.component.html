@@ -1,9 +1,12 @@
 <tui-root>
   <header tuiNavigationHeader>
     <span tuiNavigationLogo>
-      <span tuiFade>A very very long product name</span>
+      <span tuiFade>Document Viewer</span>
     </span>
-    <zoom-control></zoom-control>
+    <div class="header__tools">
+      <zoom-control></zoom-control>
+      <button appearance="primary" tuiButton type="button">Сохранить</button>
+    </div>
   </header>
 
   <div class="viewer-content"><router-outlet></router-outlet></div>

@@ -8,14 +8,14 @@
 .document-container {
   transition: width 0.3s ease-in-out;
   position: relative;
-  gap: 1rem;
-  display: flex;
-  flex-direction: column;
   cursor: context-menu;
+  z-index: 0;
 }
 
 .document {
-  position: relative;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .document-page {
@@ -24,6 +24,7 @@
   -webkit-box-shadow: 1px 1px 3px 0px rgba(34, 60, 80, 0.23);
   -moz-box-shadow: 1px 1px 3px 0px rgba(34, 60, 80, 0.23);
   box-shadow: 1px 1px 3px 0px rgba(34, 60, 80, 0.23);
+  pointer-events: none;
 }
 .document-image {
   width: inherit;

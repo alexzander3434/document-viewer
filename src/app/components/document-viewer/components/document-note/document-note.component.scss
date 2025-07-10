@@ -1,3 +1,120 @@
 :host {
   position: absolute;
+  box-sizing: border-box;
+  z-index: 2;
+  cursor: move !important;
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 250%;
+    background-color: transparent;
+    left: -65%;
+    top: -50%;
+    z-index: 0;
+    height: 200%;
+  }
+}
+
+.note {
+  word-break: break-all;
+  width: 100%;
+  height: 100%;
+  font-size: 12px;
+  min-height: 30px;
+  min-width: 75px;
+  max-width: 350px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.2rem 0.75rem;
+  box-shadow: 1px 1px 2px 0px rgba(34, 60, 80, 0.15);
+
+  &.dragging {
+    cursor: move !important;
+  }
+
+  &.rightComment {
+    .note__removeBtn {
+      left: -0.7rem;
+      right: auto;
+    }
+  }
+
+  &__text {
+    cursor: text;
+    outline: none;
+    overflow-y: auto;
+    max-height: 350px;
+    padding-right: 0.5rem;
+  }
+
+  &__removeBtn {
+    cursor: pointer;
+    z-index: 5;
+    position: absolute;
+    right: -0.7rem;
+    top: -0.7rem;
+  }
+
+  &__pivots {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  &__pivot {
+    position: absolute;
+    background-color: #ddd;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    cursor: pointer;
+    margin: auto;
+    pointer-events: all;
+    opacity: 0;
+
+    &:hover {
+      opacity: 1 !important;
+    }
+
+    &--left {
+      right: auto;
+      left: -0.5rem;
+      top: 0;
+      bottom: 0;
+    }
+
+    &--right {
+      right: -0.5rem;
+      left: auto;
+      top: 0;
+      bottom: 0;
+    }
+
+    &--top {
+      right: 0;
+      left: 0;
+      top: -0.5rem;
+      bottom: auto;
+    }
+    &--bottom {
+      right: 0;
+      left: 0;
+      top: auto;
+      bottom: -0.5rem;
+    }
+  }
+}
+
+.success {
+  background: var(--tui-status-positive);
+}
+
+.primary {
+  background: var(--tui-background-accent-1);
 }
