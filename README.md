@@ -1,14 +1,31 @@
 # DocumentViewer
 
+Вариант выполнения тестового задания.
+Использован Angular v.19 и TaigaUI v.4.44.
+Для перемещения элементов используется нативный html-draggable.
+Альтернативно (закомментировано) есть иной способ расчета перемещения.
+Для размещения комментария необходимо вызвать контекстное меню (правый клик) в требуемом месте документа.
+Экспериментально предоставлена возможность изменять ориентацию для элемента комментария.
+По-умолчанию - позиционирование комментария - слева. Для иных позиций при зуме неообходим прерасчет смещения.
+Для редактирования содержимого комментария используется content-editable блок.
+Возможно здесь необходим доп. функционал, ограничивающий использование тэгов (domSanitizer, safeHTMLPipe).
+
+В данном состоянии интерфейс не предназначен для работы на мобильном/сенсорном устройстве. При помощи сервисов TaigaUI (или иным способом) можно переопределять типы событий (touchstart, touchend) для адаптации функций перемещения комментариев и др.
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.11.
 
 ## Development server
+
+To install, run:
+
+````bash
+npm i --force
 
 To start a local development server, run:
 
 ```bash
 ng serve
-```
+````
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
@@ -35,24 +52,6 @@ ng build
 ```
 
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
 ## Additional Resources
 

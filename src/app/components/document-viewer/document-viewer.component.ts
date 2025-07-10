@@ -18,6 +18,7 @@ import {
   shareReplay,
   startWith,
   switchMap,
+  take,
   withLatestFrom,
 } from "rxjs";
 import { DocumentService, IDocument } from "./services";
@@ -108,28 +109,12 @@ export class DocumentViewerComponent {
   readonly loading$ = this.documentData$.pipe(map((data) => !data));
 
   ngOnInit(): void {
-    fromEvent<KeyboardEvent>(window, "keydown")
-      .pipe(
-        withLatestFrom(this.documentService.docuementMode$),
-        filter(
-          ([event, mode]) =>
-            ["+", "-"].includes(event.key) && mode !== "editing"
-        ),
-        takeUntilDestroyed(this.destroy)
-      )
-      .subscribe(([event]) => this.zoomService.zoom(event.key));
-
-    this.headerService.saveTrigger$
-      .pipe(takeUntilDestroyed(this.destroy))
-      .subscribe(() => this.saveDocument());
+    this.listenKeysPressing();
+    this.listenSaving();
   }
 
   setNoteTarget(event: MouseEvent): void {
     this.targetPosition = [event.pageX, event.pageY];
-  }
-
-  saveDocument(): void {
-    console.log("save", this.noteControlSet);
   }
 
   addNote(): void {
@@ -170,5 +155,33 @@ export class DocumentViewerComponent {
     newNoteComponent.noteControl = noteControl;
 
     newNoteComponent.dimensionRatio$ = this.dimensionParams$;
+  }
+
+  private listenSaving(): void {
+    this.headerService.saveTrigger$
+      .pipe(
+        switchMap(() => this.documentData$.pipe(take(1))),
+        takeUntilDestroyed(this.destroy)
+      )
+      .subscribe((document) => {
+        const comments = [...this.noteControlSet]
+          .map((control) => control.value)
+          .filter(Boolean);
+
+        console.log("document", { ...document, comments });
+      });
+  }
+
+  private listenKeysPressing(): void {
+    fromEvent<KeyboardEvent>(window, "keydown")
+      .pipe(
+        withLatestFrom(this.documentService.docuementMode$),
+        filter(
+          ([event, mode]) =>
+            ["+", "-"].includes(event.key) && mode !== "editing"
+        ),
+        takeUntilDestroyed(this.destroy)
+      )
+      .subscribe(([event]) => this.zoomService.zoom(event.key));
   }
 }

@@ -121,6 +121,7 @@ export class DocumentNoteComponent {
     const stopDragging$ = merge(
       fromEvent<MouseEvent>(noteElement, "mouseup"),
       fromEvent<MouseEvent>(noteElement, "mouseleave")
+      //fromEvent(this.hostElement, "mousemove")
     );
 
     const dropEvent$ = merge(
@@ -154,6 +155,31 @@ export class DocumentNoteComponent {
         takeUntilDestroyed(this.destroy)
       )
       .subscribe();
+
+    // startDragging$
+    //   .pipe(
+    //     withLatestFrom(this.dimensionRatio$),
+    //     switchMap(
+    //       ([
+    //         [layerX, layerY],
+    //         [widthRatio, heightRatio, hostLeftOffset, hostTopOffset],
+    //       ]) =>
+    //         fromEvent<MouseEvent>(this.hostElement, "mousemove").pipe(
+    //           tap((dragEvent) => {
+    //             this.positionY =
+    //               heightRatio * (dragEvent.pageY - hostTopOffset - layerY);
+    //             this.positionX =
+    //               widthRatio * (dragEvent.pageX - hostLeftOffset - layerX);
+
+    //             noteElement.style.top = this.positionY + "%";
+    //             noteElement.style.left = this.positionX + "%";
+    //           }),
+
+    //           takeUntil(stopDragging$)
+    //         )
+    //     )
+    //   )
+    //   .subscribe();
 
     merge(
       fromEvent<DragEvent>(this.hostElement, "dragover"),
