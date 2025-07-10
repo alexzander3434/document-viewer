@@ -9,9 +9,7 @@ export interface IDocument {
 
 type DocumentMode = "editing";
 
-@Injectable({
-  providedIn: "root",
-})
+@Injectable()
 export class DocumentService {
   getDocumentDataById(id: string): Observable<IDocument> {
     return of(documentData).pipe(delay(1500));

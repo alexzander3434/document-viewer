@@ -10,6 +10,14 @@
   position: relative;
   cursor: context-menu;
   z-index: 0;
+
+  &__loader {
+    padding: 3rem;
+
+    tui-loader {
+      --tui-thickness: 0.125em;
+    }
+  }
 }
 
 .document {
@@ -26,6 +34,7 @@
   box-shadow: 1px 1px 3px 0px rgba(34, 60, 80, 0.23);
   pointer-events: none;
 }
+
 .document-image {
   width: inherit;
   pointer-events: none;

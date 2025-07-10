@@ -1,8 +1,14 @@
 import { TuiButton, TuiRoot } from "@taiga-ui/core";
-import { ChangeDetectionStrategy, Component, Provider } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Provider,
+} from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 import { TuiAppBar, TuiNavigation } from "@taiga-ui/layout";
-import { ZoomControlComponent } from "./components";
+import { DocumentService, ZoomControlComponent } from "./components";
+import { HeaderService } from "../services";
 
 @Component({
   selector: "app-root",
@@ -20,5 +26,11 @@ import { ZoomControlComponent } from "./components";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
+  private readonly headerService = inject(HeaderService);
+
   title = "document-viewer";
+
+  save() {
+    this.headerService.saveTrigger$.next();
+  }
 }

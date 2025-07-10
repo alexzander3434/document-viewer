@@ -28,6 +28,7 @@ import { TuiDataListDropdownManager } from "@taiga-ui/kit";
 import { DocumentNoteComponent } from "./components";
 import { FormControl } from "@angular/forms";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { HeaderService } from "../../../services";
 
 @Component({
   selector: "document-viewer",
@@ -42,6 +43,7 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
   templateUrl: "./document-viewer.component.html",
   styleUrl: "./document-viewer.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [DocumentService],
 })
 export class DocumentViewerComponent {
   @ViewChild("documentContainerHost", { read: ViewContainerRef, static: false })
@@ -56,6 +58,8 @@ export class DocumentViewerComponent {
   private readonly elementRef = inject(ElementRef);
 
   private readonly destroy = inject(DestroyRef);
+
+  private readonly headerService = inject(HeaderService);
 
   private readonly defaultWidth = 800;
 
@@ -114,10 +118,18 @@ export class DocumentViewerComponent {
         takeUntilDestroyed(this.destroy)
       )
       .subscribe(([event]) => this.zoomService.zoom(event.key));
+
+    this.headerService.saveTrigger$
+      .pipe(takeUntilDestroyed(this.destroy))
+      .subscribe(() => this.saveDocument());
   }
 
   setNoteTarget(event: MouseEvent): void {
     this.targetPosition = [event.pageX, event.pageY];
+  }
+
+  saveDocument(): void {
+    console.log("save", this.noteControlSet);
   }
 
   addNote(): void {

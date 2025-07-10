@@ -1,6 +1,6 @@
 <div class="document-container" [style.width]="documentZoomedWidth$ | async">
   <ng-container *ngIf="loading$ | async">
-    <tui-loader size="l" />
+    <div class="document-container__loader"><tui-loader size="xl" /></div>
   </ng-container>
   <ng-container *ngIf="documentData$ | async as document">
     <div
