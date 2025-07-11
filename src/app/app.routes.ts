@@ -8,4 +8,10 @@ export const routes: Routes = [
         (m) => m.DocumentViewerComponent
       ),
   },
+
+  {
+    path: "",
+    redirectTo: "documents/1",
+    pathMatch: "full",
+  },
 ];
